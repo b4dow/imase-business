@@ -13,7 +13,11 @@ export const ProductsByCategory = async ({ slug }: Props) => {
       include: {
         products: {
           include: {
-            images: true,
+            images: {
+              select: {
+                url: true,
+              },
+            },
           },
         },
       },
