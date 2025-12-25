@@ -42,3 +42,6 @@ export * from "./product/single-product/single-product.component";
 
 // Componente Servicio
 export * from "./service/single-service/single-service.component";
+
+// Resend
+export * from "./resend/email-template.component";

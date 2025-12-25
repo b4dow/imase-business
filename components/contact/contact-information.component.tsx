@@ -10,8 +10,8 @@ export const ContactInformationComponent = () => {
 
       <div className="space-y-6 mb-8">
         <div className="flex items-start gap-4">
-          <div className="bg-[#FF0000] opacity-10 p-3 rounded-full">
-            <MapPin color="#FFF" />
+          <div className="bg-[#FF0000]/10 p-3 rounded-full">
+            <MapPin className="text-[#FF0000]" />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 mb-1">Dirección</h3>
@@ -26,8 +26,8 @@ export const ContactInformationComponent = () => {
         </div>
 
         <div className="flex items-start gap-4">
-          <div className="bg-[#FF0000] opacity-10 p-3 rounded-full shrink-0">
-            <Phone color="#FFF" size={24} />
+          <div className="bg-[#FF0000]/10 p-3 rounded-full shrink-0">
+            <Phone className="text-[#FF0000]" size={24} />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 mb-1">Telefono</h3>
@@ -41,8 +41,8 @@ export const ContactInformationComponent = () => {
         </div>
 
         <div className="flex items-start gap-4">
-          <div className="bg-[#FF0000] opacity-10 p-3 rounded-full shrink-0">
-            <Mail color="#FFF" size={24} />
+          <div className="bg-[#FF0000]/10 p-3 rounded-full shrink-0">
+            <Mail className="text-[#FF0000]" size={24} />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 mb-1">Email</h3>

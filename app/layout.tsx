@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import { fontGlobal } from "@/utils/font";
 import type { Metadata } from "next";
 import "./globals.css";
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fontGlobal.className}  antialiased`}>{children}</body>
+      <body className={`${fontGlobal.className}  antialiased`}>
+        {children}
+        <ToastContainer />
+      </body>
     </html>
   );
 }

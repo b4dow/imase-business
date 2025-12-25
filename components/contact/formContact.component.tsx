@@ -1,13 +1,64 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import { Button } from "../ui/button";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { SendFormContactAction } from "@/actions";
+import { Bounce, toast } from "react-toastify";
+
+const contactFormSchema = z.object({
+  name: z.string().nonempty({ error: "El campo nombre es obligatorio" }),
+  email: z.email("El campo debe ser un correo electronico."),
+  subject: z.string().nonempty({ error: "El campo asunto es obligatorio." }),
+  phone: z.string().nonempty({ error: "El campo telefono es obligatorio " }),
+  message: z.string().nonempty({ error: "El campo mensaje es obligatorio" }),
+});
+
+type ContactFormInterface = z.infer<typeof contactFormSchema>;
 
 export const FormContactComponent = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isLoading },
+  } = useForm<ContactFormInterface>({
+    resolver: zodResolver(contactFormSchema),
+  });
 
-  const onSubmit = () => {
-    console.log(onSubmit);
+  const onSubmit: SubmitHandler<ContactFormInterface> = async (data) => {
+    console.log({ data });
+    const { ok } = await SendFormContactAction({
+      name: data.name,
+      email: data.email,
+      subject: data.subject,
+      phone: data.phone,
+      message: data.message,
+    });
+
+    if (!ok) {
+      toast.error("mensaje no enviado.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        theme: "light",
+        transition: Bounce,
+      });
+      reset();
+      return;
+    }
+
+    toast("mensaje enviado con exito", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      theme: "light",
+      transition: Bounce,
+    });
+    reset();
   };
 
   return (
@@ -34,6 +85,9 @@ export const FormContactComponent = () => {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:border-transparent"
             placeholder="Juan Pérez"
           />
+          {errors.name && (
+            <p className="text-[#FF0000] text-center">{errors.name.message}</p>
+          )}
         </div>
 
         <div>
@@ -49,6 +103,29 @@ export const FormContactComponent = () => {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:border-transparent"
             placeholder="juan@example.com"
           />
+          {errors.email && (
+            <p className="text-[#FF0000] text-center">{errors.email.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            htmlFor="subject"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Asunto
+          </label>
+          <input
+            type="text"
+            {...register("subject")}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:border-transparent"
+            placeholder="información"
+          />
+          {errors.subject && (
+            <p className="text-[#FF0000] text-center">
+              {errors.subject.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -59,11 +136,14 @@ export const FormContactComponent = () => {
             Telefono
           </label>
           <input
-            type="tel"
+            type="string"
             {...register("phone")}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:border-transparent"
             placeholder="+51 999 999 999"
           />
+          {errors.phone && (
+            <p className="text-[#FF0000] text-center">{errors.phone.message}</p>
+          )}
         </div>
 
         <div>
@@ -79,6 +159,11 @@ export const FormContactComponent = () => {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:border-transparent resize-none"
             placeholder="Tell us how we can help you..."
           />
+          {errors.message && (
+            <p className="text-[#FF0000] text-center">
+              {errors.message.message}
+            </p>
+          )}
         </div>
 
         <Button
@@ -86,7 +171,7 @@ export const FormContactComponent = () => {
           className="w-full flex items-center justify-center gap-2"
         >
           <Send size={20} />
-          Enviar Mensaje
+          {isLoading ? "Enviando..." : "Enviar mensaje"}
         </Button>
       </form>
     </div>

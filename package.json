@@ -10,10 +10,12 @@
     "seed": "ts-node ./seed/seed-database.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@prisma/adapter-neon": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@prisma/extension-accelerate": "^3.0.1",
     "@radix-ui/react-slot": "^1.2.4",
+    "@react-email/components": "^1.0.2",
     "@sindresorhus/slugify": "^3.0.0",
     "@types/pg": "^8.16.0",
     "class-variance-authority": "^0.7.1",
@@ -24,6 +26,8 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-hook-form": "^7.69.0",
+    "react-toastify": "^11.0.5",
+    "resend": "^6.6.0",
     "swiper": "^12.0.3",
     "tailwind-merge": "^3.4.0",
     "ts-node": "^10.9.2",
