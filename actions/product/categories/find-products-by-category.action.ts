@@ -5,32 +5,45 @@ import prisma from "@/lib/prisma";
 interface PaginationOptions {
   page?: number;
   take?: number;
-  category: string;
+  categorySlug: string;
 }
 
 export const FindProductsByCategoryAction = async ({
   page = 1,
   take = 6,
-  category,
+  categorySlug,
 }: PaginationOptions) => {
   if (isNaN(Number(page))) page = 1;
 
   if (page > 1) page = 1;
 
   try {
-    const productsByCategory = await prisma.product.findMany({
-      take: take,
-      skip: (page - 1) * take,
+    const productsByCategory = await prisma.category.findFirst({
       where: {
-        categoryId: category,
+        slug: categorySlug,
       },
       include: {
-        images: true,
-        category: true,
+        products: {
+          take: take,
+          skip: (page - 1) * take,
+          include: {
+            images: {
+              select: {
+                url: true,
+              },
+            },
+          },
+        },
       },
     });
 
-    if (!productsByCategory.length) {
+    if (!productsByCategory)
+      return {
+        ok: false,
+        message: "No se encuentra disponible la categoria.",
+      };
+
+    if (!productsByCategory.products.length) {
       return {
         ok: false,
         message: "No se encuentran los productos de la categoria.",
@@ -39,16 +52,17 @@ export const FindProductsByCategoryAction = async ({
 
     const countProducts = await prisma.product.count({
       where: {
+        categoryId: productsByCategory.id,
         availability: true,
       },
     });
 
     const totalPages = Math.ceil(countProducts / take);
 
-    const formattedProduct = productsByCategory.map((product) => ({
+    const formattedProduct = productsByCategory.products.map((product) => ({
       ...product,
       images: product.images.map((image) => image.url),
-      category: product.category.name,
+      category: productsByCategory.name,
     }));
 
     return {

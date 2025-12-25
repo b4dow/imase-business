@@ -14,9 +14,13 @@ export const ServiceComponent = async ({ searchParams }: Props) => {
   const SearchParams = await searchParams;
   const name = SearchParams.name;
   const page = SearchParams.page ? parseInt(SearchParams.page) : 1;
-  const { services, totalPages } = name
-    ? await FindServicesByNameAction({ name, page })
-    : await FindServicesAction({ page });
+
+  let services;
+  if (name) {
+    services = await FindServicesByNameAction({ name, page });
+  } else {
+    services = await FindServicesAction({ page });
+  }
 
   return (
     <>
@@ -36,7 +40,7 @@ export const ServiceComponent = async ({ searchParams }: Props) => {
               </Link>
             )}
           </div>
-          {!services ? (
+          {!services.services?.length ? (
             <div className="mt-32 flex flex-col gap-5 items-center justify-center ">
               <h2 className="text-2xl mt-5">
                 No se encontraron los servicios disponibles
@@ -50,18 +54,13 @@ export const ServiceComponent = async ({ searchParams }: Props) => {
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {name &&
-                services.map((service) => (
-                  <ServiceCard key={service.id} service={service} />
-                ))}
-
-              {services.map((service) => (
+              {services.services.map((service) => (
                 <ServiceCard key={service.id} service={service} />
               ))}
             </div>
           )}
         </div>
-        {totalPages && <Pagination totalPages={totalPages} />}
+        {services.totalPages && <Pagination totalPages={services.totalPages} />}
       </section>
     </>
   );

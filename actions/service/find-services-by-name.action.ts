@@ -37,6 +37,7 @@ export const FindServicesByNameAction = async ({
 
     const countServicesByName = await prisma.service.count({
       where: {
+        name: { contains: name, mode: "insensitive" },
         availability: true,
       },
     });

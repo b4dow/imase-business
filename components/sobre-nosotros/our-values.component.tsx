@@ -8,10 +8,10 @@ export const OurValuesComponent = () => {
           Nuestros Valores
         </h2>
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div className="bg-white p-8 rounded-lg shadow-md border-t-4 border-[#FF0000]">
+          <div className=" p-8 rounded-lg shadow-md border-t-4 border-[#FF0000]">
             <div className="flex items-center gap-4 mb-4">
-              <div className="bg-[#FF0000] opacity-10 p-3 rounded-full">
-                <Target className="text-white" size={32} />
+              <div className="bg-[#FF0000]/10 p-3  rounded-full">
+                <Target className="text-[#FF0000]" strokeWidth={1.5} />
               </div>
               <h3 className="text-2xl font-bold text-gray-900">Misión</h3>
             </div>
@@ -26,8 +26,8 @@ export const OurValuesComponent = () => {
 
           <div className="bg-white p-8 rounded-lg shadow-md border-t-4 border-gray-700">
             <div className="flex items-center gap-4 mb-4">
-              <div className="bg-gray-700 opacity-10 p-3 rounded-full">
-                <Eye className="text-white" size={32} />
+              <div className="bg-gray-700/10 p-3 rounded-full">
+                <Eye className="text-gray-700" size={32} />
               </div>
               <h3 className="text-2xl font-bold text-gray-900">Vision</h3>
             </div>

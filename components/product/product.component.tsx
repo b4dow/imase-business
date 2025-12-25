@@ -13,27 +13,34 @@ import { Pagination } from "../ui/pagination";
 import { Banner } from "../ui/banner";
 
 interface Props {
-  searchParams: Promise<{ page?: string; name: string; category: string }>;
+  searchParams: Promise<{ page?: string; name: string; categoria: string }>;
 }
 
 export const ProductComponent = async ({ searchParams }: Props) => {
   const SearchParams = await searchParams;
   const page = SearchParams.page ? parseInt(SearchParams.page) : 1;
   const name = SearchParams.name;
-  const category = SearchParams.category;
+  const categorySlug = SearchParams.categoria;
 
   const { categories } = await FindCategoriesProductAction();
 
-  const { products, totalPages } = name
-    ? await FindProductsByNameAction({ page, name })
-    : category
-    ? await FindProductsByCategoryAction({ page, category })
-    : await findProductsAction({ page });
+  let products;
 
-  console.log({ SearchParams });
-  console.log({ totalPages });
+  if (name) {
+    products = await FindProductsByNameAction({
+      page,
+      name,
+    });
+  } else if (categorySlug) {
+    products = await FindProductsByCategoryAction({
+      page,
+      categorySlug,
+    });
+  } else {
+    products = await findProductsAction({ page });
+  }
 
-  if (!categories) return;
+  if (!categories?.length) return;
 
   return (
     <>
@@ -54,7 +61,7 @@ export const ProductComponent = async ({ searchParams }: Props) => {
             )}
             <SelectedCategorie categories={categories} />
           </div>
-          {!products ? (
+          {!products.products?.length ? (
             <div className="mt-32 flex flex-col gap-5 items-center justify-center ">
               <h2 className="text-2xl mt-5">
                 No se encuentran disponibles los productos
@@ -68,21 +75,14 @@ export const ProductComponent = async ({ searchParams }: Props) => {
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {name &&
-                products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              {category &&
-                products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              {products.map((product) => (
+              {products.products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           )}
         </div>
-        {totalPages && <Pagination totalPages={totalPages} />}
+
+        {products.totalPages && <Pagination totalPages={products.totalPages} />}
       </section>
     </>
   );

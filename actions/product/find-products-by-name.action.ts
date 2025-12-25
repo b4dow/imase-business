@@ -38,6 +38,7 @@ export const FindProductsByNameAction = async ({
 
     const countProducts = await prisma.product.count({
       where: {
+        name: { contains: name, mode: "insensitive" },
         availability: true,
       },
     });

@@ -1,5 +1,7 @@
 import { FeaturedServicesAction } from "@/actions";
 import { ServiceCard } from "../ui/serviceCard";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export const FeaturedServiceComponent = async () => {
   const { services } = await FeaturedServicesAction();
@@ -17,10 +19,15 @@ export const FeaturedServiceComponent = async () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
           {services.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
+        </div>
+        <div className="text-center">
+          <Link href="/servicios">
+            <Button variant="outline">Ver más servicios</Button>
+          </Link>
         </div>
       </div>
     </section>

@@ -26,7 +26,7 @@ export const SelectedCategorie = ({ categories }: Props) => {
       setSelectedCategory("All");
     }
 
-    router.push(`/productos?category=${selectedCategory}`);
+    router.push(`/productos?categoria=${selectedCategory}`);
   }, [selectedCategory]);
 
   return (
@@ -38,7 +38,7 @@ export const SelectedCategorie = ({ categories }: Props) => {
       <option value="All">Todas las categorias</option>
       {categories.map((category) => {
         return (
-          <option key={category.id} value={category.id}>
+          <option key={category.id} value={category.slug}>
             {category.name}
           </option>
         );
