@@ -5,8 +5,8 @@ export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="text-center">
-          <ul className="space-y-2 flex flex-col md:flex-row justify-center gap-2 md:gap-10 mb-10 md:mb-5 ">
+        <div className="text-center ">
+          <ul className="space-y-2 flex flex-col md:flex-row justify-center gap-10 md:gap-16 mb-10 md:mb-5 ">
             <li>
               <Link
                 href="/"
@@ -49,7 +49,7 @@ export const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 justify-between  gap-8">
+        <div className=" border-t border-gray-800 mt-8 pt-8  grid grid-cols-1 md:grid-cols-3 justify-between  gap-8">
           <div className="md:row-span-1 md:row-end-2 md:col-start-1 md:col-end-2">
             <h3 className="text-xl font-bold text-[#FF0000] mb-4">
               INDUSTRIAS IMASE

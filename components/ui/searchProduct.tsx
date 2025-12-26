@@ -1,4 +1,5 @@
 "use client";
+import { useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { Button } from "./button";
 import { useForm } from "react-hook-form";
@@ -11,11 +12,15 @@ interface searchI {
 export const SearchProduct = () => {
   const { register, handleSubmit, reset } = useForm<searchI>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const category = searchParams.get("categoria") || "";
   const onSubmit = async (data: searchI) => {
     if (data.name) {
       reset();
       router.refresh();
-      return router.push(`/productos?name=${data.name}`);
+      return router.push(
+        `/productos?name=${data.name} ${category && `&categoria=${category}`}`
+      );
     }
 
     router.refresh();
@@ -23,7 +28,7 @@ export const SearchProduct = () => {
   };
 
   return (
-    <form action="" onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex gap-2">
         <div className="flex-1 relative">
           <Search

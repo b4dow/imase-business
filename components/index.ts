@@ -19,6 +19,7 @@ export * from "./home/about.component";
 export * from "./home/featured-products.component";
 export * from "./home/featured-services.component";
 export * from "./home/cta.component";
+export * from "./home/testimonial-wrapper";
 
 // Componentes Sobre Nosotros
 export * from "./sobre-nosotros/our-story.component";
@@ -32,7 +33,6 @@ export * from "./product/product.component";
 export * from "./service/service.component";
 
 // Componente Contacto
-export * from "./contact/banner-contact.component";
 export * from "./contact/formContact.component";
 export * from "./contact/contact-information.component";
 export * from "./contact/ubication-contact.component";
@@ -43,5 +43,18 @@ export * from "./product/single-product/single-product.component";
 // Componente Servicio
 export * from "./service/single-service/single-service.component";
 
+// Categoria
+export * from "./categories/category-products.component";
+
 // Resend
 export * from "./resend/email-template.component";
+
+// Skeletons
+export * from "./ui/skeletons/featured-products.skeleton";
+export * from "./ui/skeletons/testimonial.skeleton";
+export * from "./ui/skeletons/banner.skeleton";
+export * from "./ui/skeletons/product-section.skeleton";
+export * from "./ui/skeletons/single-product.skeleton";
+export * from "./ui/skeletons/service-section.skeleton";
+export * from "./ui/skeletons/single-service.skeleton";
+export * from "./ui/skeletons/category-section.skeleton";

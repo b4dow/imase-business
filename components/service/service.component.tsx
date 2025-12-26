@@ -4,17 +4,13 @@ import { Button } from "../ui/button";
 import { FindServicesAction, FindServicesByNameAction } from "@/actions";
 import { ServiceCard } from "../ui/serviceCard";
 import { Pagination } from "../ui/pagination";
-import { Banner } from "../ui/banner";
 
 interface Props {
-  searchParams: Promise<{ name: string; page: string }>;
+  name: string;
+  page?: number;
 }
 
-export const ServiceComponent = async ({ searchParams }: Props) => {
-  const SearchParams = await searchParams;
-  const name = SearchParams.name;
-  const page = SearchParams.page ? parseInt(SearchParams.page) : 1;
-
+export const ServiceComponent = async ({ name, page }: Props) => {
   let services;
   if (name) {
     services = await FindServicesByNameAction({ name, page });
@@ -24,12 +20,6 @@ export const ServiceComponent = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <Banner
-        title="Servicios"
-        subtitle="Solución de equipos de pesaje profesionales"
-        image="https://images.pexels.com/photos/5835349/pexels-photo-5835349.jpeg?auto=compress&cs=tinysrgb&w=1920"
-      />
-
       <section className="py-12 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <div className="mb-8 flex justify-between  flex-col md:flex-row gap-4">

@@ -21,7 +21,7 @@ export default async function SingleProduct({ params }: Props) {
             className="inline-flex items-center gap-2 text-gray-600 hover:text-[#FF0000] mb-8 transition-colors"
           >
             <ArrowLeft size={20} />
-            Back to Products
+            Volver a productos
           </Link>
           <SingleProductComponent product={product} />
         </div>

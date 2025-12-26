@@ -1,4 +1,4 @@
-import { FindTestimonialsAction } from "@/actions";
+import { Suspense } from "react";
 import {
   AboutComponent,
   CTAComponent,
@@ -6,20 +6,26 @@ import {
   FeaturedServiceComponent,
   HeroCarousel,
   heroSlides,
+  TestimonialWrapper,
+  FeaturedProductsSkeleton,
+  TestimonialSkeleton,
 } from "@/components";
-import { TestimonialComponent } from "@/components/home/testimonials.component";
 
-export default async function HomePage() {
-  const { testimonials } = await FindTestimonialsAction();
-  if (!testimonials) return;
+export default async function Home() {
   return (
-    <div>
+    <>
       <HeroCarousel slides={heroSlides} />
       <AboutComponent />
-      <FeaturedProductComponent />
-      <FeaturedServiceComponent />
-      <TestimonialComponent testimonials={testimonials} />
+      <Suspense fallback={<FeaturedProductsSkeleton />}>
+        <FeaturedProductComponent />
+      </Suspense>
+      <Suspense fallback={<FeaturedProductsSkeleton />}>
+        <FeaturedServiceComponent />
+      </Suspense>
+      <Suspense fallback={<TestimonialSkeleton />}>
+        <TestimonialWrapper />
+      </Suspense>
       <CTAComponent />
-    </div>
+    </>
   );
 }

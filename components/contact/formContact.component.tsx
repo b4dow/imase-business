@@ -154,7 +154,7 @@ export const FormContactComponent = () => {
             {...register("message")}
             rows={5}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:border-transparent resize-none"
-            placeholder="Tell us how we can help you..."
+            placeholder="Cuéntanos cómo podemos ayudarte..."
           />
           {errors.message && (
             <p className="text-[#FF0000] text-center">

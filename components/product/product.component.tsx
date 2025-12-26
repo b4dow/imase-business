@@ -3,25 +3,21 @@ import {
   findProductsAction,
   FindProductsByCategoryAction,
 } from "@/actions";
-import { SearchProduct } from "../ui/searchProduct";
-import { SelectedCategorie } from "../ui/selectedCategorie";
 import { FindProductsByNameAction } from "@/actions/product/find-products-by-name.action";
-import { ProductCard } from "../ui/productCard";
-import { Button } from "../ui/button";
+import { SearchProduct } from "../ui/searchProduct";
 import Link from "next/link";
+import { Button } from "../ui/button";
+import { SelectedCategorie } from "../ui/selectedCategorie";
+import { ProductCard } from "../ui/productCard";
 import { Pagination } from "../ui/pagination";
-import { Banner } from "../ui/banner";
 
 interface Props {
-  searchParams: Promise<{ page?: string; name: string; categoria: string }>;
+  page?: number;
+  name: string;
+  categorySlug: string;
 }
 
-export const ProductComponent = async ({ searchParams }: Props) => {
-  const SearchParams = await searchParams;
-  const page = SearchParams.page ? parseInt(SearchParams.page) : 1;
-  const name = SearchParams.name;
-  const categorySlug = SearchParams.categoria;
-
+export const ProductComponent = async ({ page, name, categorySlug }: Props) => {
   const { categories } = await FindCategoriesProductAction();
 
   let products;
@@ -44,12 +40,6 @@ export const ProductComponent = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <Banner
-        title="Productos"
-        subtitle="Equipos de pesaje de calidad e instrumentos de laboratorio"
-        image="https://images.pexels.com/photos/5835349/pexels-photo-5835349.jpeg?auto=compress&cs=tinysrgb&w=1920"
-      />
-
       <section className="py-12 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
           <div className="mb-8 flex justify-between  flex-col md:flex-row gap-4">
