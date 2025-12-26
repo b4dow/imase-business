@@ -21,7 +21,6 @@ export const FormContactComponent = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isLoading },
   } = useForm<ContactFormInterface>({
     resolver: zodResolver(contactFormSchema),
@@ -46,11 +45,10 @@ export const FormContactComponent = () => {
         theme: "light",
         transition: Bounce,
       });
-      reset();
       return;
     }
 
-    toast("mensaje enviado con exito", {
+    toast.success("mensaje enviado con exito", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -58,7 +56,6 @@ export const FormContactComponent = () => {
       theme: "light",
       transition: Bounce,
     });
-    reset();
   };
 
   return (

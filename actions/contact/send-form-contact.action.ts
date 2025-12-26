@@ -21,12 +21,15 @@ export const SendFormContactAction = async ({
   const resend_email = process.env.RESEND_EMAIL;
   console.log({ name, email, subject, phone, message });
   try {
-    const { data, error } = await resend.emails.send({
-      from: `${name} <${email}>`,
-      to: [`${resend_email}`],
+    const { error } = await resend.emails.send({
+      from: `Imase <${resend_email}>`,
+      to: ["hackc7360@gmail.com"],
+      replyTo: email,
       subject: `${subject}`,
       react: EmailTemplate({ name, email, phone, message }),
     });
+
+    console.log({ error });
 
     if (error)
       return {

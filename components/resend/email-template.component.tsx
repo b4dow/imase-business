@@ -33,13 +33,10 @@ export const EmailTemplate = ({ name, email, phone, message }: Props) => {
               alt="Imase"
               className="mx-auto"
             />
-            <Heading className="text-xl text-center font-bold text-gray-800 mb-4">
-              Nuevo mensaje de contacto
-            </Heading>
 
-            <Text className="text-gray-600 mb-4 text-center">
+            <Heading className="text-gray-600 mb-4 text-center">
               Has recibido un nuevo mensaje desde el formulario web.
-            </Text>
+            </Heading>
 
             <Hr className="my-4" />
 
@@ -47,17 +44,17 @@ export const EmailTemplate = ({ name, email, phone, message }: Props) => {
               <Text>
                 <span className="font-semibold">Nombre:</span> {name}
               </Text>
+
               <Text>
                 <span className="font-semibold">Email:</span> {email}
               </Text>
+
               <Text>
                 <span className="font-semibold">Teléfono:</span> {phone}
               </Text>
-            </Section>
 
-            <Hr className="my-4" />
+              <Hr className="my-4" />
 
-            <Section>
               <Text className="font-semibold text-gray-800 mb-2">Mensaje:</Text>
               <Text className="bg-gray-50 border border-gray-200 rounded-md p-4 text-sm text-gray-700 whitespace-pre-line">
                 {message}
